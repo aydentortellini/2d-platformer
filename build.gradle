@@ -1,0 +1,17 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        google()
+        gradlePluginPortal()
+    }
+}
+
+allprojects {
+    apply plugin: 'java-library'
+    version = '1.0'
+    ext.appName = "2d-platformer"
+
+    repositories {
+        mavenCentral()
+    }
+}

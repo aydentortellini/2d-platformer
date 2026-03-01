@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"C:/Users/ayden/Desktop/stuff/2d-platformer\" log --oneline)",
+      "Bash(git -C \"C:/Users/ayden/Desktop/stuff/2d-platformer\" config --list)",
+      "WebFetch(domain:libgdx.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(gradle wrapper --gradle-version 7.6)",
+      "Bash(powershell -Command \"Invoke-WebRequest -Uri ''https://github.com/gradle/gradle/raw/v7.6.0/gradle/wrapper/gradle-wrapper.jar'' -OutFile ''gradle/wrapper/gradle-wrapper.jar''\")",
+      "Bash(./gradlew desktop:compileJava)",
+      "Bash(./gradlew desktop:run)"
+    ]
+  }
+}
