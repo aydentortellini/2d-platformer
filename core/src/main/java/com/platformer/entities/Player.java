@@ -31,8 +31,8 @@ public class Player {
     public boolean isOnGround = false;
 
     // Physics constants - tweak these to change game feel
-    private static final float MOVE_SPEED    = 180f;  // horizontal speed
-    private static final float JUMP_VELOCITY = 420f;  // upward burst on jump
+    private static final float MOVE_SPEED    = 250f;  // horizontal speed
+    private static final float JUMP_VELOCITY = 500f;  // upward burst on jump
     private static final float GRAVITY       = -900f; // downward pull (negative = down in LibGDX)
 
     public Player(float startX, float startY) {
