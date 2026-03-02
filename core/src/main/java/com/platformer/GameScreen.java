@@ -10,7 +10,6 @@ import com.platformer.entities.Platform;
 import com.platformer.entities.Player;
 import com.platformer.physics.AABB;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,7 +46,7 @@ public class GameScreen implements Screen {
         this.levelNumber = levelNumber;
     }
 
-    
+
     @Override
     public void show() {
         // setToOrtho(false, ...) = Y-axis points UP, (0,0) is bottom-left
@@ -57,14 +56,9 @@ public class GameScreen implements Screen {
         shapeRenderer = new ShapeRenderer();
         spriteBatch = new SpriteBatch();
 
-        player = new Player(100f, 200f);
-
-        platforms = new ArrayList<>();
-        platforms.add(new Platform(0f,    0f,    2000f, 32f));  // ground
-        platforms.add(new Platform(200f,  120f,  200f,  24f));  // low platform
-        platforms.add(new Platform(500f,  200f,  180f,  24f));  // mid platform
-        platforms.add(new Platform(780f,  290f,  220f,  24f));  // high platform
-        platforms.add(new Platform(300f,  350f,  150f,  24f));  // top platform
+        Level level = LevelLoader.load(levelNumber);
+        player = new Player(level.spawnX, level.spawnY);
+        platforms = level.platforms;
     }
 
     @Override
