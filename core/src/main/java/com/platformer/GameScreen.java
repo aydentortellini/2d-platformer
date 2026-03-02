@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.platformer.entities.Platform;
 import com.platformer.entities.Player;
@@ -33,6 +34,9 @@ public class GameScreen implements Screen {
     // ShapeRenderer draws colored rectangles without needing image files
     private ShapeRenderer shapeRenderer;
 
+    // SpriteBatch draws textures/sprites efficiently
+    private SpriteBatch spriteBatch;
+
     private static final float WORLD_WIDTH  = 800f;
     private static final float WORLD_HEIGHT = 480f;
 
@@ -50,6 +54,7 @@ public class GameScreen implements Screen {
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
 
         shapeRenderer = new ShapeRenderer();
+        spriteBatch = new SpriteBatch();
 
         player = new Player(100f, 200f);
 
@@ -94,15 +99,19 @@ public class GameScreen implements Screen {
     }
 
     private void draw() {
-        // Without this, shapes draw at fixed screen coords instead of world coords
+        // Draw platforms with ShapeRenderer
         shapeRenderer.setProjectionMatrix(camera.combined);
-
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         for (Platform platform : platforms) {
             platform.render(shapeRenderer);
         }
-        player.render(shapeRenderer);
         shapeRenderer.end();
+
+        // Draw player sprite with SpriteBatch
+        spriteBatch.setProjectionMatrix(camera.combined);
+        spriteBatch.begin();
+        player.render(spriteBatch);
+        spriteBatch.end();
     }
 
     @Override
@@ -114,7 +123,9 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        shapeRenderer.dispose(); // free GPU memory
+        shapeRenderer.dispose();
+        spriteBatch.dispose();
+        player.dispose();
     }
 
     @Override public void hide()   {}

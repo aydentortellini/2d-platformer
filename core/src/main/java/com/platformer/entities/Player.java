@@ -2,8 +2,8 @@ package com.platformer.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * The Player class manages:
@@ -35,9 +35,12 @@ public class Player {
     private static final float JUMP_VELOCITY = 500f;  // upward burst on jump
     private static final float GRAVITY       = -900f; // downward pull (negative = down in LibGDX)
 
+    private Texture texture;
+
     public Player(float startX, float startY) {
         this.x = startX;
         this.y = startY;
+        texture = new Texture(Gdx.files.internal("assets/player.png"));
     }
 
     /**
@@ -85,8 +88,11 @@ public class Player {
         y += velocityY * deltaTime;
     }
 
-    public void render(ShapeRenderer shapeRenderer) {
-        shapeRenderer.setColor(Color.ROYAL);
-        shapeRenderer.rect(x, y, WIDTH, HEIGHT);
+    public void render(SpriteBatch batch) {
+        batch.draw(texture, x, y, WIDTH, HEIGHT);
+    }
+
+    public void dispose() {
+        texture.dispose();
     }
 }
