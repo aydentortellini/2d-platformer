@@ -14,6 +14,6 @@ public class PlatformerGame extends Game {
     public void create() {
         // Switch to the main game screen when the app starts.
         // Game.render() automatically delegates to screen.render() each frame.
-        setScreen(new GameScreen(this));
+        setScreen(new MainMenu(this));
     }
 }

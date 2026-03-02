@@ -36,8 +36,11 @@ public class GameScreen implements Screen {
     private static final float WORLD_WIDTH  = 800f;
     private static final float WORLD_HEIGHT = 480f;
 
-    public GameScreen(PlatformerGame game) {
+    private int levelNumber;
+
+    public GameScreen(PlatformerGame game, int levelNumber) {
         this.game = game;
+        this.levelNumber = levelNumber;
     }
 
     @Override
