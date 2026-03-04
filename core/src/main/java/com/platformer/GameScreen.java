@@ -40,6 +40,9 @@ public class GameScreen implements Screen {
     private static final float WORLD_HEIGHT = 480f;
 
     private int levelNumber;
+    private float goalX, goalY;
+    private static final float GOAL_WIDTH  = 40f;
+    private static final float GOAL_HEIGHT = 40f;
 
     public GameScreen(PlatformerGame game, int levelNumber) {
         this.game = game;
@@ -59,6 +62,8 @@ public class GameScreen implements Screen {
         Level level = LevelLoader.load(levelNumber);
         player = new Player(level.spawnX, level.spawnY);
         platforms = level.platforms;
+        goalX = level.goalX;
+        goalY = level.goalY;
     }
 
     @Override
@@ -74,7 +79,6 @@ public class GameScreen implements Screen {
     private void update(float deltaTime) {
         // Clamp deltaTime to prevent huge physics jumps on lag spikes
         deltaTime = Math.min(deltaTime, 1f / 15f);
-
         player.update(deltaTime);
 
         // Collision detection: check player against every platform
@@ -84,6 +88,13 @@ public class GameScreen implements Screen {
                 AABB.resolve(player, platform);
             }
         }
+
+        if (AABB.overlaps(player.x, player.y, Player.WIDTH, Player.HEIGHT,
+                          goalX, goalY, GOAL_WIDTH, GOAL_HEIGHT)) {
+            game.setScreen(new GameScreen(game, levelNumber + 1));
+        }
+
+
 
         // Smooth camera follow: move 10% of the gap toward the player each frame
         float targetX = player.x + Player.WIDTH / 2f;
@@ -100,6 +111,8 @@ public class GameScreen implements Screen {
         for (Platform platform : platforms) {
             platform.render(shapeRenderer);
         }
+        shapeRenderer.setColor(0f, 1f, 0.3f, 1f); // green goal zone
+        shapeRenderer.rect(goalX, goalY, GOAL_WIDTH, GOAL_HEIGHT);
         shapeRenderer.end();
 
         // Draw player sprite with SpriteBatch

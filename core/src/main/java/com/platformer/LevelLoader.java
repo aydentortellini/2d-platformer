@@ -15,17 +15,17 @@ public class LevelLoader {
     }
 
     private static Level buildLevel1() {
-        return new Level(100f, 200f, Arrays.asList(
+        return new Level(100f, 200f, 350f, 374f, Arrays.asList(
             new Platform(0f,   0f,   2000f, 32f),  // ground
             new Platform(200f, 120f, 200f,  24f),  // low platform
             new Platform(500f, 200f, 180f,  24f),  // mid platform
             new Platform(780f, 290f, 220f,  24f),  // high platform
-            new Platform(300f, 350f, 150f,  24f)   // top platform
+            new Platform(300f, 300f, 150f,  24f)   // top platform
         ));
     }
 
     private static Level buildLevel2() {
-        return new Level(50f, 200f, Arrays.asList(
+        return new Level(50f, 200f, 750f, 364f, Arrays.asList(
             new Platform(0f,   0f,   2000f, 32f),  // ground
             new Platform(150f, 100f, 120f,  24f),
             new Platform(350f, 180f, 120f,  24f),
