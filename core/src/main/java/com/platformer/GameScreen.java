@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.platformer.entities.Platform;
 import com.platformer.entities.Player;
 import com.platformer.physics.AABB;
-
+import com.badlogic.gdx.graphics.Texture;
 import java.util.List;
 
 /**
@@ -26,6 +26,8 @@ public class GameScreen implements Screen {
 
     private Player player;
     private List<Platform> platforms;
+
+    private Texture backgroundTexture;
 
     // OrthographicCamera = 2D camera, no perspective. Defines the visible area.
     private OrthographicCamera camera;
@@ -55,7 +57,7 @@ public class GameScreen implements Screen {
         // setToOrtho(false, ...) = Y-axis points UP, (0,0) is bottom-left
         camera = new OrthographicCamera();
         camera.setToOrtho(false, WORLD_WIDTH, WORLD_HEIGHT);
-
+        backgroundTexture = new Texture(Gdx.files.internal("assets/backgroundTexture.png"));
         shapeRenderer = new ShapeRenderer();
         spriteBatch = new SpriteBatch();
 
@@ -105,6 +107,15 @@ public class GameScreen implements Screen {
     }
 
     private void draw() {
+        // 1. Background (drawn first = behind everything)
+    spriteBatch.setProjectionMatrix(camera.combined);
+    spriteBatch.begin();
+    
+    spriteBatch.draw(backgroundTexture, // texture
+        camera.position.x - WORLD_WIDTH / 800f,
+        camera.position.y - WORLD_HEIGHT / 480f,
+        WORLD_WIDTH, WORLD_HEIGHT);
+    spriteBatch.end();
         // Draw platforms with ShapeRenderer
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -134,6 +145,7 @@ public class GameScreen implements Screen {
         shapeRenderer.dispose();
         spriteBatch.dispose();
         player.dispose();
+        backgroundTexture.dispose();
     }
 
     @Override public void hide()   {}
